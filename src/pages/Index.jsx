@@ -1,8 +1,16 @@
-import { Box, Container, VStack, Text, Heading, Image, SimpleGrid, Link, Flex, Spacer, HStack, IconButton } from "@chakra-ui/react";
-import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
+import { Box, Container, VStack, Text, Heading, Image, SimpleGrid, Link, Flex, Spacer, HStack, IconButton, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import { FaFacebook, FaTwitter, FaInstagram, FaSearch } from "react-icons/fa";
 import { Link as RouterLink } from "react-router-dom";
+import { useState } from "react";
 
 const Index = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = () => {
+    console.log("Searching for:", searchQuery);
+    // Implement the search functionality here
+  };
+
   return (
     <Box>
       {/* Navigation Bar */}
@@ -15,6 +23,22 @@ const Index = () => {
             <Link as={RouterLink} to="/products">Products</Link>
             <Link as={RouterLink} to="/about">About Us</Link>
             <Link as={RouterLink} to="/contact">Contact Us</Link>
+            <InputGroup maxW="400px">
+              <Input
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                bg="white"
+                color="black"
+              />
+              <InputRightElement>
+                <IconButton
+                  aria-label="Search"
+                  icon={<FaSearch />}
+                  onClick={handleSearch}
+                />
+              </InputRightElement>
+            </InputGroup>
           </HStack>
         </HStack>
       </Flex>
