@@ -1,14 +1,22 @@
-import { Box, Container, VStack, Text, Heading, Image, SimpleGrid, Link, Flex, Spacer, HStack, IconButton, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import { Box, Container, VStack, Text, Heading, Image, SimpleGrid, Link, Flex, Spacer, HStack, IconButton, Input, InputGroup, InputRightElement, Button } from "@chakra-ui/react";
 import { FaFacebook, FaTwitter, FaInstagram, FaSearch } from "react-icons/fa";
 import { Link as RouterLink } from "react-router-dom";
 import { useState } from "react";
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [category, setCategory] = useState("");
+  const [priceRange, setPriceRange] = useState([0, 1000]);
+  const [brand, setBrand] = useState("");
 
   const handleSearch = () => {
     console.log("Searching for:", searchQuery);
     // Implement the search functionality here
+  };
+
+  const handleFilter = () => {
+    console.log("Filtering products with:", { category, priceRange, brand });
+    // Implement the filtering functionality here
   };
 
   return (
@@ -50,6 +58,56 @@ const Index = () => {
           <Text fontSize="xl" mb={6}>Your one-stop shop for the latest electronics</Text>
           <Image src="/images/featured-product.jpg" alt="Featured Product" borderRadius="md" />
         </Container>
+      </Box>
+
+      {/* Filter Section */}
+      <Box bg="gray.200" p={4} mb={8}>
+        <Heading as="h3" size="lg" mb={4}>Filter Products</Heading>
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4}>
+          <Box>
+            <Text mb={2}>Category</Text>
+            <Input
+              placeholder="Enter category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              bg="white"
+              color="black"
+            />
+          </Box>
+          <Box>
+            <Text mb={2}>Price Range</Text>
+            <InputGroup>
+              <Input
+                placeholder="Min"
+                type="number"
+                value={priceRange[0]}
+                onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
+                bg="white"
+                color="black"
+              />
+              <InputRightElement>-</InputRightElement>
+              <Input
+                placeholder="Max"
+                type="number"
+                value={priceRange[1]}
+                onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
+                bg="white"
+                color="black"
+              />
+            </InputGroup>
+          </Box>
+          <Box>
+            <Text mb={2}>Brand</Text>
+            <Input
+              placeholder="Enter brand"
+              value={brand}
+              onChange={(e) => setBrand(e.target.value)}
+              bg="white"
+              color="black"
+            />
+          </Box>
+        </SimpleGrid>
+        <Button mt={4} colorScheme="blue" onClick={handleFilter}>Apply Filters</Button>
       </Box>
 
       {/* Popular Products Section */}
